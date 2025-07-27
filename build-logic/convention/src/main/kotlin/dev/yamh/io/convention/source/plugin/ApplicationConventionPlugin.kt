@@ -12,8 +12,10 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.get
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import kotlin.jvm.optionals.getOrNull
+import kotlin.text.set
 
 /**
  * Convention plugin for configuring Android and iOS application modules.
@@ -103,9 +105,8 @@ class ApplicationConventionPlugin : BaseConventionPlugin() {
                     iosSimulatorArm64()
                 ).forEach { iosTarget ->
                     iosTarget.binaries.framework {
-                        baseName = moduleName
-                        isStatic = true
-                        export(project(path))
+                        this.baseName = "application_compose"
+                        this.isStatic = true
                     }
                 }
             }

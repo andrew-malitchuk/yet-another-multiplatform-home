@@ -72,9 +72,8 @@ class FeatureConventionPlugin : BaseConventionPlugin() {
                     iosSimulatorArm64()
                 ).forEach { iosTarget ->
                     iosTarget.binaries.framework {
-                        baseName = moduleName
+                        baseName = moduleName.replace(".", "-")
                         isStatic = true
-                        export(project(path))
                     }
                 }
             }
