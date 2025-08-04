@@ -1,5 +1,5 @@
 package dev.yamh.io.ghome.device
 
-class TraitEntity(
-    val metadata: TraitMetadataEntity,
+public class TraitEntity(
+    public val metadata: TraitMetadataEntity,
 )

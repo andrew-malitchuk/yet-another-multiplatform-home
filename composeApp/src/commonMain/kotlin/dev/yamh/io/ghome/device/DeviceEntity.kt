@@ -4,7 +4,7 @@ import dev.yamh.io.ghome.device.attribute.base.DeviceAttribute
 import dev.yamh.io.ghome.device.control.base.DeviceControl
 import kotlin.reflect.KClass
 
-data class DeviceEntity(
+public data class DeviceEntity(
     val id: String,
     val name: String,
     val isMatterDevice: Boolean,
@@ -15,15 +15,15 @@ data class DeviceEntity(
     val agentId: String?,
     val controls: List<DeviceControl>
 ) {
-    fun getControlByType(type: KClass<DeviceControl>): DeviceControl? {
+    public fun getControlByType(type: KClass<DeviceControl>): DeviceControl? {
         return controls.firstOrNull { type.isInstance(it) }
     }
 
-    fun containsControlType(type: KClass<out DeviceControl>): Boolean {
+    public fun containsControlType(type: KClass<out DeviceControl>): Boolean {
         return controls.any { type.isInstance(it) }
     }
 
-    fun containsControlAttribute(type: KClass<out DeviceAttribute>): Boolean {
+    public fun containsControlAttribute(type: KClass<out DeviceAttribute>): Boolean {
         return controls.any { it.attributes.any { type.isInstance(it) } }
     }
 

@@ -122,6 +122,7 @@ class ApplicationConventionPlugin : BaseConventionPlugin() {
     override fun Project.configureCommonDependencies() {
         val composeDependencies = extensions.getByType<ComposeExtension>().dependencies
         extensions.getByType<KotlinMultiplatformExtension>().apply {
+            explicitApi()
             sourceSets.apply {
                 commonMain {
                     compilerOptions {

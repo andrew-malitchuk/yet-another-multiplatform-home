@@ -13,23 +13,22 @@ import kotlin.reflect.KClass
 
 
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-suspend fun HomeClient.getDevices(): List<HomeDevice> {
+public suspend fun HomeClient.getDevices(): List<HomeDevice> {
     return devices().list().toList()
 }
 
-
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-suspend fun HomeClient.getDevice(id: String): HomeDevice? {
+public suspend fun HomeClient.getDevice(id: String): HomeDevice? {
     return devices().list().firstOrNull { it.id.id == id }
 }
 
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-suspend fun HomeClient.getDeviceTypes(id: String): List<DeviceType>? {
+public suspend fun HomeClient.getDeviceTypes(id: String): List<DeviceType>? {
     return getDevice(id)?.types()?.firstOrNull()?.toList()
 }
 
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-suspend fun HomeClient.getDeviceTrait(id: String, origin: KClass<*>): Trait? {
+public suspend fun HomeClient.getDeviceTrait(id: String, origin: KClass<*>): Trait? {
     return getDeviceTypes(id)?.firstOrNull()?.traits()?.firstOrNull {
         origin.isInstance(it)
     }

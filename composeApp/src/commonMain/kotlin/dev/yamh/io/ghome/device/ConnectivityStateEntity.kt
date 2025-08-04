@@ -1,6 +1,6 @@
 package dev.yamh.io.ghome.device
 
-enum class ConnectivityStateEntity {
+public enum class ConnectivityStateEntity {
     UNKNOWN,
     ONLINE,
     OFFLINE,

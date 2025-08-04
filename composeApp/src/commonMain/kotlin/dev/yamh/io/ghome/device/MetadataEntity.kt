@@ -1,6 +1,6 @@
 package dev.yamh.io.ghome.device
 
-data class MetadataEntity(
+public data class MetadataEntity(
     val isPrimaryType: Boolean,
     val sourceConnectivity: SourceConnectivityEntity
 )

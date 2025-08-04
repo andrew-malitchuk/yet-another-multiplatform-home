@@ -4,13 +4,13 @@ import dev.yamh.io.ghome.client.HomeClientEntity
 import dev.yamh.io.ghome.device.DeviceEntity
 import dev.yamh.io.ghome.device.attribute.base.DeviceAttribute
 
-expect class OnOffDeviceAttribute : DeviceAttribute {
+public expect class OnOffDeviceAttribute : DeviceAttribute {
 
-    companion object {
+    public companion object {
         context(HomeClientEntity)
-        suspend fun DeviceEntity.turnOn()
+        public suspend fun DeviceEntity.turnOn()
         context(HomeClientEntity)
-        suspend fun DeviceEntity.turnOff()
+        public suspend fun DeviceEntity.turnOff()
     }
 }
 

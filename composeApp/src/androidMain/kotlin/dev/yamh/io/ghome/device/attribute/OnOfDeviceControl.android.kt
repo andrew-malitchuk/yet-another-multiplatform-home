@@ -9,16 +9,17 @@ import dev.yamh.io.ghome.client.HomeClientEntity
 import dev.yamh.io.ghome.device.DeviceEntity
 import dev.yamh.io.ghome.device.attribute.base.DeviceAttribute
 import kotlinx.coroutines.flow.firstOrNull
+import kotlin.reflect.KClass
 
-actual class OnOffDeviceAttribute : DeviceAttribute() {
+public actual class OnOffDeviceAttribute : DeviceAttribute() {
 
-    actual companion object {
+    public actual companion object {
 
-        val origin = OnOff::class
+        public val origin: KClass<*> = OnOff::class
 
         @RequiresApi(Build.VERSION_CODES.O_MR1)
         context(HomeClientEntity)
-        actual suspend fun DeviceEntity.turnOff() {
+        public actual suspend fun DeviceEntity.turnOff() {
             if (!this@DeviceEntity.containsControlAttribute(OnOffDeviceAttribute::class)) return
 
             (this@HomeClientEntity.nativeHomeClient.getDeviceTrait(
@@ -29,7 +30,7 @@ actual class OnOffDeviceAttribute : DeviceAttribute() {
 
         @RequiresApi(Build.VERSION_CODES.O_MR1)
         context(HomeClientEntity)
-        actual suspend fun DeviceEntity.turnOn() {
+        public actual suspend fun DeviceEntity.turnOn() {
             if (!this@DeviceEntity.containsControlAttribute(OnOffDeviceAttribute::class)) return
 
             (this@HomeClientEntity.nativeHomeClient.getDeviceTrait(

@@ -3,19 +3,19 @@ package dev.yamh.io.ghome.client
 import dev.yamh.io.ghome.device.DeviceEntity
 import dev.yamh.io.ghome.miscellaneous.PermissionsResultEntity
 
-expect class HomeClientEntity {
+public expect class HomeClientEntity {
 
-    constructor()
+    public constructor()
 
-    suspend fun getDevices(): List<DeviceEntity>
-
-
-    suspend fun getDevice(id: String): DeviceEntity?
+    public suspend fun getDevices(): List<DeviceEntity>
 
 
-    suspend fun getDeviceTypes(id: String): List<String>
+    public suspend fun getDevice(id: String): DeviceEntity?
 
 
-    suspend fun requestPermissions(forceLaunch: Boolean = false): PermissionsResultEntity
+    public suspend fun getDeviceTypes(id: String): List<String>
+
+
+    public suspend fun requestPermissions(forceLaunch: Boolean = false): PermissionsResultEntity
 
 }

@@ -41,10 +41,10 @@ import com.google.home.matter.standard.TemperatureMeasurement
 import com.google.home.matter.standard.Thermostat
 import com.google.home.matter.standard.ThermostatDevice
 
-class Configure {
-    companion object {
+public class Configure {
+    public companion object {
         // List of supported device types by this app:
-        val supportedTypes: List<DeviceTypeFactory<out DeviceType>> = listOf(
+        public val supportedTypes: List<DeviceTypeFactory<out DeviceType>> = listOf(
             ContactSensorDevice,
             ColorTemperatureLightDevice,
             DimmableLightDevice,
@@ -66,7 +66,7 @@ class Configure {
         )
 
         // List of supported device traits by this app:
-        val supportedTraits: List<TraitFactory<out Trait>> = listOf(
+        public val supportedTraits: List<TraitFactory<out Trait>> = listOf(
             AreaAttendanceState,
             AreaPresenceState,
             Assistant,

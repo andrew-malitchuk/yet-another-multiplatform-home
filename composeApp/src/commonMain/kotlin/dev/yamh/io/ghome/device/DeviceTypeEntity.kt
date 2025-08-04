@@ -1,6 +1,6 @@
 package dev.yamh.io.ghome.device
 
-data class DeviceTypeEntity(
+public data class DeviceTypeEntity(
     val typeId: String,
     val metadata: MetadataEntity,
 )

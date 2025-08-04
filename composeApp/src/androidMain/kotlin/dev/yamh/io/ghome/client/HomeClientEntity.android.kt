@@ -25,18 +25,12 @@ import kotlinx.coroutines.flow.firstOrNull
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-actual class HomeClientEntity : KoinComponent {
+public actual class HomeClientEntity : KoinComponent {
 
-    val nativeHomeClient: HomeClient by inject()
-
-
-    // Boolean state (//device@b7cd50f9-4207-45a1-a715-d6535425f889)
-    // Basic information (//device@24fda253-6a15-454c-997e-34dd5b0e6c76)
-    // level control (//device@78d91f5d-7f1b-4c47-856f-df3d02dc270f)
-
+    public val nativeHomeClient: HomeClient by inject()
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
-    actual suspend fun getDevices(): List<DeviceEntity> {
+    public actual suspend fun getDevices(): List<DeviceEntity> {
 
         return nativeHomeClient.getDevices().map {
             DeviceEntity(
@@ -57,7 +51,7 @@ actual class HomeClientEntity : KoinComponent {
     }
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
-    actual suspend fun requestPermissions(forceLaunch: Boolean): PermissionsResultEntity {
+    public actual suspend fun requestPermissions(forceLaunch: Boolean): PermissionsResultEntity {
         val result = nativeHomeClient.requestPermissions(forceLaunch).let { original ->
             PermissionsResultEntity(
                 status = PermissionsResultStatusEntity.entries
@@ -70,7 +64,7 @@ actual class HomeClientEntity : KoinComponent {
     }
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
-    actual suspend fun getDevice(id: String): DeviceEntity? {
+    public actual suspend fun getDevice(id: String): DeviceEntity? {
         return nativeHomeClient.getDevice(id)?.let {
             DeviceEntity(
                 id = it.id.id,
@@ -90,13 +84,13 @@ actual class HomeClientEntity : KoinComponent {
     }
 
     @RequiresApi(Build.VERSION_CODES.O_MR1)
-    actual suspend fun getDeviceTypes(id: String): List<String> {
+    public actual suspend fun getDeviceTypes(id: String): List<String> {
         return nativeHomeClient.getDeviceTypes(id)?.map { it.toString() } ?: emptyList()
     }
 }
 
 
-fun getDeviceType(
+public fun getDeviceType(
     deviceType: List<com.google.home.DeviceType>?,
     supportedType: List<DeviceTypeFactory<out com.google.home.DeviceType>>
 ): List<DeviceControl> {
@@ -124,7 +118,7 @@ fun getDeviceType(
 }
 
 
-fun getDeviceControls(
+public fun getDeviceControls(
     deviceTrait: List<Trait>?,
     supportedTrait: List<TraitFactory<out Trait>>
 ): List<DeviceAttribute> {

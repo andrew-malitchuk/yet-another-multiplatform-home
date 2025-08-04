@@ -20,11 +20,10 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.core.component.inject
 
-class MainActivity : ComponentActivity() {
+public class MainActivity : ComponentActivity() {
 
-    val nativeHomeClient: HomeClient by inject()
+    public val nativeHomeClient: HomeClient by inject()
 
-    @RequiresApi(Build.VERSION_CODES.O_MR1)
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
@@ -35,21 +34,11 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private suspend fun commissioningCallback(activityResult: ActivityResult) {
-        try {
-            // Try to convert ActivityResult into CommissioningResult:
-            val result: CommissioningResult = CommissioningResult.fromIntentSenderResult(
-                activityResult.resultCode, activityResult.data
-            )
-            // Store the CommissioningResult in the StateFlow:
-        } catch (exception: ApiException) {
-            // Record the exception for commissioning failure:
-        }
-    }
+
 }
 
 @Preview
 @Composable
-fun AppAndroidPreview() {
+private fun AppAndroidPreview() {
     App()
 }

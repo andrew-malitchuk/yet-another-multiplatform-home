@@ -52,8 +52,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 
 @RequiresApi(Build.VERSION_CODES.O_MR1)
-actual val gHomeModule: Module = module {
-
+public actual val gHomeModule: Module = module {
 
     single<FactoryRegistry> {
         FactoryRegistry(
