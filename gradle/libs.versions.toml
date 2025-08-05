@@ -23,6 +23,10 @@ kotlinGradlePlugin = "2.0.20"
 kotlinxCoroutinesCore = "1.9.0"
 koin = "4.1.0"
 
+kotlinxSerializationCore = "1.7.3"
+
+navigationCompose = "2.8.0-alpha13"
+
 [libraries]
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
@@ -42,6 +46,10 @@ koin-android-compose = { module = "io.insert-koin:koin-androidx-compose", versio
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koin" }
 koin-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }
+
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
