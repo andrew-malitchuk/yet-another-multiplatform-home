@@ -28,7 +28,7 @@ public class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         nativeHomeClient.registerActivityResultCallerForPermissions(this@MainActivity)
-
+        
         setContent {
             App()
         }
