@@ -13,6 +13,9 @@ pluginManagement {
         }
         mavenCentral()
         gradlePluginPortal()
+        maven {
+            url = uri("https://androidx.dev/snapshots/builds/13617490/artifacts/repository")
+        }
     }
 }
 
@@ -28,8 +31,15 @@ dependencyResolutionManagement {
         mavenCentral()
         mavenLocal()
         google()
+        maven {
+            url = uri("https://androidx.dev/snapshots/builds/13617490/artifacts/repository")
+        }
     }
 }
 
 include(":composeApp")
 include(":data-ghome")
+include(":presentation-core-ui")
+include(":presentation-core-navigation")
+include(":presentation-feature-homes")
+include(":presentation-feature-rooms")
