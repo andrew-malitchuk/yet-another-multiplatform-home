@@ -1,4 +1,4 @@
-package dev.yamh.io.ghome.core
+package dev.yamh.io.data.ghome.ghome.core
 
 import com.google.home.DeviceType
 import com.google.home.DeviceTypeFactory

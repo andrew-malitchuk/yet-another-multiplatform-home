@@ -1,4 +1,4 @@
-package dev.yamh.io.di
+package dev.yamh.io.data.ghome.di
 
 import org.koin.core.module.Module
 

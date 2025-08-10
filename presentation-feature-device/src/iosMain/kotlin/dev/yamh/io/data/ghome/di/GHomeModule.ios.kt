@@ -1,6 +1,6 @@
-package dev.yamh.io.di
+package dev.yamh.io.data.ghome.di
 
 import org.koin.core.module.Module
 
-public actual val gHomeModule: Module
+actual val gHomeModule: Module
     get() = TODO("Not yet implemented")
