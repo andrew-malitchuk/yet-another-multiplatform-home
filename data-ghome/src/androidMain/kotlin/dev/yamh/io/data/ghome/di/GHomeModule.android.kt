@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-@RequiresApi(Build.VERSION_CODES.O_MR1)
 public actual val gHomeModule: Module = module {
 
     single<FactoryRegistry> {
@@ -34,5 +33,6 @@ public actual val gHomeModule: Module = module {
         val context: Context = get()
         Home.getClient(context = context, homeConfig = config)
     }
+
 
 }
