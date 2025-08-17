@@ -59,6 +59,9 @@ class LibraryConventionPlugin : BaseConventionPlugin() {
                 sourceCompatibility = JavaVersion.VERSION_21
                 targetCompatibility = JavaVersion.VERSION_21
             }
+            buildFeatures {
+                buildConfig = true
+            }
         }
     }
 
@@ -103,7 +106,13 @@ class LibraryConventionPlugin : BaseConventionPlugin() {
      */
     override fun Project.configureCommonDependencies() {
         extensions.getByType<KotlinMultiplatformExtension>().apply {
+            explicitApi()
             sourceSets.apply {
+                commonMain {
+                    compilerOptions {
+                        freeCompilerArgs.add("-Xcontext-receivers")
+                    }
+                }
                 commonMain.dependencies {
                     implementation(libs.findLibrary("kotlinx-coroutines-core").get())
                     implementation(libs.findLibrary("androidx-lifecycle-viewmodel").get())

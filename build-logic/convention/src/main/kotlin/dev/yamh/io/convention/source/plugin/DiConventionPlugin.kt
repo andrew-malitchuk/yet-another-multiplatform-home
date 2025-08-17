@@ -28,6 +28,7 @@ class DiConventionPlugin : BaseConventionPlugin() {
      */
     override fun Project.configureCommonDependencies() {
         extensions.getByType<KotlinMultiplatformExtension>().apply {
+            explicitApi()
             sourceSets.apply {
                 commonMain.dependencies {
                     api(libs.findLibrary("koin-core").get())
@@ -46,7 +47,7 @@ class DiConventionPlugin : BaseConventionPlugin() {
     override fun Project.configureAndroidDependencies() {
         extensions.getByType<KotlinMultiplatformExtension>().apply {
             sourceSets.apply {
-                commonMain.dependencies {
+                androidMain.dependencies {
                     implementation(libs.findLibrary("koin-android").get())
                     implementation(libs.findLibrary("koin-android-compose").get())
                 }
