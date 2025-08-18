@@ -14,10 +14,20 @@ val secretsProperties = Properties().apply {
 
 val projectNumber = secretsProperties["PROJECT_NUMBER"] as String
 
+kotlin {
+    sourceSets {
+        commonMain.dependencies {
+            implementation(projects.commonCore)
+        }
+    }
+}
+
+
 dependencies {
     // Home API SDK dependency:
     implementation("com.google.android.gms:play-services-home:17.0.0")
     implementation("com.google.android.gms:play-services-home-types:17.0.0")
+    implementation(projects.commonCore)
 }
 
 
