@@ -1,15 +1,16 @@
 package dev.yamh.io.data.ghome.core.ext
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.home.DeviceType
+import com.google.home.DeviceTypeFactory
 import com.google.home.HomeClient
 import com.google.home.HomeDevice
 import com.google.home.Room
 import com.google.home.Structure
 import com.google.home.Trait
+import com.google.home.TraitFactory
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -53,7 +54,6 @@ internal suspend fun HomeClient.getRooms(): Set<Room> {
         ?.takeIf { it.isNotEmpty() }
         ?: emptySet()
 }
-
 
 
 internal fun HomeClient.getRoomsFlow(): StateFlow<Set<Room>> {
@@ -112,6 +112,29 @@ internal suspend fun HomeClient.getDevice(id: String): HomeDevice? {
         ?.firstOrNull { it.id.id == id }
 }
 
+internal suspend fun HomeClient.subscribeToDeviceChanges(
+    id: String,
+    type: DeviceTypeFactory<*>?,
+    trait: TraitFactory<*>?
+): Flow<Trait?> {
+    type ?: return emptyFlow()
+    trait ?: return emptyFlow()
+    return getDevice(id)?.type(type)?.map {
+        it.trait(trait)
+    } ?: emptyFlow()
+}
+
+internal suspend fun HomeClient.getDeviceAttribute(
+    id: String,
+    type: DeviceTypeFactory<*>?,
+    trait: TraitFactory<*>?
+): Trait? {
+    type ?: return null
+    trait ?: return null
+    return getDevice(id)?.type(type)?.map {
+        it.trait(trait)
+    }?.firstOrNull()
+}
 
 internal suspend fun HomeClient.getDeviceTypes(id: String): Set<DeviceType>? {
     return getDevice(id)?.types()?.firstOrNull()
@@ -122,4 +145,3 @@ internal suspend fun HomeClient.getDeviceTrait(id: String, origin: KClass<*>): T
         origin.isInstance(it)
     }
 }
-

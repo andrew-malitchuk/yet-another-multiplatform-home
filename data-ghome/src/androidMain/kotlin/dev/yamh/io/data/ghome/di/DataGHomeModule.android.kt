@@ -1,19 +1,19 @@
 package dev.yamh.io.data.ghome.di
 
 import android.content.Context
-import android.os.Build
-import androidx.annotation.RequiresApi
 import com.google.home.FactoryRegistry
 import com.google.home.Home
 import com.google.home.HomeClient
 import com.google.home.HomeConfig
-import dev.yamh.io.data.ghome.ghome.core.Configure.Companion.supportedTraits
-import dev.yamh.io.data.ghome.ghome.core.Configure.Companion.supportedTypes
+import dev.yamh.io.data.ghome.source.core.Configure.Companion.supportedTraits
+import dev.yamh.io.data.ghome.source.core.Configure.Companion.supportedTypes
+import dev.yamh.io.data.ghome.source.datasource.HomeClientModel
+import dev.yamh.io.data.ghome.source.datasource.authorization.AuthorizationHelper
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-public actual val gHomeModule: Module = module {
+public actual val dataGHomeModule: Module = module {
 
     single<FactoryRegistry> {
         FactoryRegistry(
@@ -23,9 +23,7 @@ public actual val gHomeModule: Module = module {
     }
 
     single<HomeClient> {
-
         val registry: FactoryRegistry = get()
-
         val config = HomeConfig(
             coroutineContext = Dispatchers.IO,
             factoryRegistry = registry
@@ -34,5 +32,13 @@ public actual val gHomeModule: Module = module {
         Home.getClient(context = context, homeConfig = config)
     }
 
+
+    single<HomeClientModel> {
+        HomeClientModel()
+    }
+
+    single<AuthorizationHelper> {
+        AuthorizationHelper()
+    }
 
 }
