@@ -1,8 +1,9 @@
-package dev.yamh.io.data.ghome.ghome.foobar.home
+package dev.yamh.io.data.ghome.source.datasource.home
 
-import dev.yamh.io.data.ghome.ghome.foobar.room.RoomModel
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
-import dev.yamh.io.data.ghome.ghome.foobar.core.Name
+import dev.yamh.common.core.core.Id
+import dev.yamh.common.core.core.Name
+import dev.yamh.io.data.ghome.source.datasource.room.RoomModel
+
 
 public expect class HomeModel(id: Id, name: Name) {
 
