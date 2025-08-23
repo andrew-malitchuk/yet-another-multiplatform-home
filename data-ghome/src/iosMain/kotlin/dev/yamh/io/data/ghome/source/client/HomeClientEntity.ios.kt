@@ -1,7 +1,7 @@
-package dev.yamh.io.data.ghome.ghome.client
+package dev.yamh.io.data.ghome.source.client
 
-import dev.yamh.io.data.ghome.ghome.device.DeviceEntity
-import dev.yamh.io.data.ghome.ghome.miscellaneous.PermissionsResultEntity
+import dev.yamh.io.data.ghome.source.device.DeviceEntity
+import dev.yamh.io.data.ghome.source.miscellaneous.PermissionsResultEntity
 
 actual class HomeClientEntity {
 

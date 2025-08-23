@@ -1,7 +1,6 @@
-package dev.yamh.io.data.ghome.ghome.foobar
+package dev.yamh.io.data.ghome.source.datasource
 
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
-import dev.yamh.io.data.ghome.ghome.foobar.home.HomeModel
+import dev.yamh.io.data.ghome.source.datasource.home.HomeModel
 
 public actual class HomeClientModel {
     public actual suspend fun getHomes(): List<HomeModel> {

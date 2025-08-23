@@ -1,7 +1,6 @@
-package dev.yamh.io.data.ghome.ghome.foobar.room
+package dev.yamh.io.data.ghome.source.datasource.room
 
-import dev.yamh.io.data.ghome.ghome.device.DeviceEntity
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
+import dev.yamh.io.data.ghome.source.device.DeviceEntity
 
 public actual class RoomModel {
     public actual suspend fun getDevices(): List<DeviceEntity> {

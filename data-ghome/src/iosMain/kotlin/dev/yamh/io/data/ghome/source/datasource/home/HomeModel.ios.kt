@@ -1,7 +1,6 @@
-package dev.yamh.io.data.ghome.ghome.foobar.home
+package dev.yamh.io.data.ghome.source.datasource.home
 
-import dev.yamh.io.data.ghome.ghome.foobar.room.RoomModel
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
+import dev.yamh.io.data.ghome.source.datasource.room.RoomModel
 
 public actual class HomeModel actual constructor(id: Id, name: String) {
 

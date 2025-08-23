@@ -1,7 +1,6 @@
-package dev.yamh.io.data.ghome.ghome.foobar.device
+package dev.yamh.io.data.ghome.source.datasource.device
 
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
-import dev.yamh.io.data.ghome.ghome.foobar.device.attribute.base.DeviceAttribute
+import dev.yamh.io.data.ghome.source.datasource.device.attribute.DeviceAttribute
 import kotlin.reflect.KClass
 
 public actual class DeviceModel actual constructor(
