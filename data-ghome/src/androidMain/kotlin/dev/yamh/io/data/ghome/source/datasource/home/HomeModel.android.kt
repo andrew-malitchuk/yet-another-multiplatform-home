@@ -1,12 +1,12 @@
-package dev.yamh.io.data.ghome.ghome.foobar.home
+package dev.yamh.io.data.ghome.source.datasource.home
 
 import com.google.home.HomeClient
 import com.google.home.Structure
+import dev.yamh.common.core.core.Id
+import dev.yamh.common.core.core.Name
 import dev.yamh.io.data.ghome.core.ext.getRooms
-import dev.yamh.io.data.ghome.ghome.foobar.room.RoomModel
-import dev.yamh.io.data.ghome.ghome.foobar.room.RoomModel.Companion.toModel
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
-import dev.yamh.io.data.ghome.ghome.foobar.core.Name
+import dev.yamh.io.data.ghome.source.datasource.room.RoomModel
+import dev.yamh.io.data.ghome.source.datasource.room.RoomModel.Companion.toModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.getValue
@@ -35,7 +35,7 @@ public actual class HomeModel actual constructor(id: Id, name: Name) : KoinCompo
     }
 
     internal companion object Companion {
-        internal fun Structure.toHomeModel(): HomeModel {
+        internal fun Structure.toModel(): HomeModel {
             return HomeModel(
                 id = Id(id.id),
                 name = Name(name),

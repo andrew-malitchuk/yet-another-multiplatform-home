@@ -1,4 +1,4 @@
-package dev.yamh.io.data.ghome.ghome.core
+package dev.yamh.io.data.ghome.source.core
 
 import com.google.home.DeviceType
 import com.google.home.DeviceTypeFactory
@@ -18,11 +18,14 @@ import com.google.home.google.Notification
 import com.google.home.google.Time
 import com.google.home.google.Volume
 import com.google.home.matter.standard.AirPurifierDevice
+import com.google.home.matter.standard.AirQualitySensorDevice
 import com.google.home.matter.standard.BasicInformation
 import com.google.home.matter.standard.BooleanState
+import com.google.home.matter.standard.ColorControl
 import com.google.home.matter.standard.ColorTemperatureLightDevice
 import com.google.home.matter.standard.ContactSensorDevice
 import com.google.home.matter.standard.DimmableLightDevice
+import com.google.home.matter.standard.DoorLockDevice
 import com.google.home.matter.standard.ExtendedColorLightDevice
 import com.google.home.matter.standard.GenericSwitchDevice
 import com.google.home.matter.standard.LevelControl
@@ -38,8 +41,10 @@ import com.google.home.matter.standard.RootNodeDevice
 import com.google.home.matter.standard.SpeakerDevice
 import com.google.home.matter.standard.TemperatureControl
 import com.google.home.matter.standard.TemperatureMeasurement
+import com.google.home.matter.standard.TemperatureSensorDevice
 import com.google.home.matter.standard.Thermostat
 import com.google.home.matter.standard.ThermostatDevice
+import com.google.home.matter.standard.WaterLeakDetectorDevice
 
 public class Configure {
     public companion object {
@@ -62,7 +67,11 @@ public class Configure {
             SpeakerDevice,
             ThermostatDevice,
             GoogleAirCoolerDevice,
-            RoomAirConditionerDevice
+            RoomAirConditionerDevice,
+            TemperatureSensorDevice,
+            WaterLeakDetectorDevice,
+            DoorLockDevice,
+            AirQualitySensorDevice,
         )
 
         // List of supported device traits by this app:
@@ -84,7 +93,8 @@ public class Configure {
             Time,
             Volume,
             ExtendedFanControl,
-            ExtendedThermostat
+            ExtendedThermostat,
+            ColorControl,
         )
     }
 }

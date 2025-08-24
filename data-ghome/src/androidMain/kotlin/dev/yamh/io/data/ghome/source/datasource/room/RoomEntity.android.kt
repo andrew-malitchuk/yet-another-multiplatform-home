@@ -1,13 +1,13 @@
-package dev.yamh.io.data.ghome.ghome.foobar.room
+package dev.yamh.io.data.ghome.source.datasource.room
 
 import com.google.home.HomeClient
 import com.google.home.Room
+import dev.yamh.common.core.core.Id
 import dev.yamh.io.data.ghome.core.ext.getDevice
 import dev.yamh.io.data.ghome.core.ext.getDevices
-import dev.yamh.io.data.ghome.ghome.foobar.core.Id
-import dev.yamh.io.data.ghome.ghome.foobar.core.Name
-import dev.yamh.io.data.ghome.ghome.foobar.device.DeviceModel
-import dev.yamh.io.data.ghome.ghome.foobar.device.DeviceModel.Companion.toModel
+import dev.yamh.common.core.core.Name
+import dev.yamh.io.data.ghome.source.datasource.device.DeviceModel
+import dev.yamh.io.data.ghome.source.datasource.device.DeviceModel.Companion.toNewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -22,11 +22,11 @@ public actual class RoomModel actual constructor(id: Id, name: Name, homeId: Id)
     public actual suspend fun getDevices(): List<DeviceModel> {
         return nativeHomeClient.getDevices().filter {
             it.roomId?.id == id.value && it.structureId?.id == homeId.value
-        }.map { it.toModel() }
+        }.map { it.toNewModel() }
     }
 
     public actual suspend fun getDevice(id: Id): DeviceModel? {
-        return nativeHomeClient.getDevice(id = id.value)?.toModel()
+        return nativeHomeClient.getDevice(id = id.value)?.toNewModel()
     }
 
     public actual suspend fun device(id: Id): DeviceModel? {
