@@ -1,7 +1,0 @@
-TEAM_ID=
-
-PRODUCT_NAME=yet-another-multiplatform-home
-PRODUCT_BUNDLE_IDENTIFIER=dev.yamh.io.yet-another-multiplatform-home$(TEAM_ID)
-
-CURRENT_PROJECT_VERSION=1
-MARKETING_VERSION=1.0
