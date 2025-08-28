@@ -12,13 +12,17 @@ plugins {
 
 
 kotlin {
-    sourceSets{
+    sourceSets {
         commonMain.dependencies {
-                        implementation(libs.navigation.compose)
+            implementation(compose.components.uiToolingPreview)
+            implementation(libs.navigation.compose)
+            implementation(libs.material3.windowsizeclass.multiplatform)
+            implementation(compose.material3)
 
 
             implementation(libs.kotlinx.serialization.core) // Use the latest version
             implementation(projects.presentationCoreNavigation)
+            implementation(projects.presentationCoreStyling)
             implementation(projects.dataGhome)
         }
     }
