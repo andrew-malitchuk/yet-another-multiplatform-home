@@ -16,10 +16,14 @@ public class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
+        val device = intent.getStringExtra("device")
+
         nativeHomeClient.registerActivityResultCallerForPermissions(this@MainActivity)
         
         setContent {
-            App()
+            App(
+                device = device
+            )
         }
     }
 
