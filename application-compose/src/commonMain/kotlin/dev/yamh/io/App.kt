@@ -28,14 +28,13 @@ import org.koin.compose.getKoin
 
 @Composable
 @Preview
-public fun App() {
-
-    val homeClientModel: HomeClientModel = HomeClientModel()
+public fun App(
+    device: String? = null,
+) {
 
     val settingsRepository: SettingsRepository = getKoin().get()
     val subscribeToThemeChangesUseCase: SubscribeToThemeChangesUseCase = getKoin().get()
     val subscribeToLanguageChangesUseCase: SubscribeToLanguageChangesUseCase = getKoin().get()
-
 
     val scope = rememberCoroutineScope()
     scope.launch {
@@ -53,29 +52,15 @@ public fun App() {
     AppTheme(
         useDarkTheme = themeFlow.value.getOrNull()?.isDark ?: true,
         language = (language.value.getOrNull() ?: LanguageEntity.ENGLISH).lang,
-    ){
-
-        scope.launch {
-            val foo = homeClientModel.getHomes()
-            val selectedHome = foo.firstOrNull()
-
-            val rooms = selectedHome?.getRooms()
-            rooms.toString()
-
-            val devices = rooms?.firstOrNull()?.getDevices()
-            devices.toString()
-
-            with(homeClientModel) {
-//                device?.turnOff()
-            }
-
-
+    ) {
+        val startDestination = when {
+            device != null -> GlobalNavigation.Device(device = device)
+            else -> GlobalNavigation.Splash
         }
 
         HostNavigationGraph(
             navHostController = rememberNavController(),
-//            startDestination = GlobalNavigation.Onboarding,
-            startDestination = GlobalNavigation.Splash,
+            startDestination = startDestination,
         )
     }
 }
