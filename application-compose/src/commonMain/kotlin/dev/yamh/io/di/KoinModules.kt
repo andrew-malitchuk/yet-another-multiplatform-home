@@ -1,11 +1,13 @@
 package dev.yamh.io.di
 
+import dev.yamh.data.database.impl.di.dataDatabaseDataStoreModule
 import dev.yamh.data.preference.impl.di.dataPreferenceDataStoreModule
 import dev.yamh.data.preference.impl.di.dataPreferenceImplModule
 import dev.yamh.data.repository.impl.di.dataRepositoryImplDataModule
 import dev.yamh.domain.repository.di.domainRepositoryModule
 import dev.yamh.domain.usecase.impl.di.domainUseCaseImplModule
 import dev.yamh.io.data.ghome.di.dataGHomeModule
+import dev.yamh.io.presentation.core.platform.di.presentationCorePlatform
 import dev.yamh.io.presentation.feature.authorization.di.presentationFeatureAuthorization
 import dev.yamh.io.presentation.feature.device.di.presentationFeatureDevice
 import dev.yamh.io.presentation.feature.homes.di.presentationFeatureHomes
@@ -26,9 +28,11 @@ public fun initKoin(config: KoinAppDeclaration? = null): KoinApplication =
 
             dataPreferenceImplModule,
             dataPreferenceDataStoreModule,
+            dataDatabaseDataStoreModule,
             dataRepositoryImplDataModule,
             domainRepositoryModule,
             domainUseCaseImplModule,
+            presentationCorePlatform,
             presentationFeatureOnboarding,
             presentationFeatureAuthorization,
             presentationFeatureHomes,
