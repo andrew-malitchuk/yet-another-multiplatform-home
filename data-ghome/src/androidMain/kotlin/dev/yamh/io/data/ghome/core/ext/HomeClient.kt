@@ -1,5 +1,6 @@
 package dev.yamh.io.data.ghome.core.ext
 
+import android.util.Log
 import com.google.home.DeviceType
 import com.google.home.DeviceTypeFactory
 import com.google.home.HomeClient
@@ -8,12 +9,21 @@ import com.google.home.Room
 import com.google.home.Structure
 import com.google.home.Trait
 import com.google.home.TraitFactory
+import com.google.home.google.GoogleWindowDevice
+import com.google.home.matter.standard.BooleanState
+import com.google.home.matter.standard.ContactSensorDevice
+import com.google.home.matter.standard.WaterFreezeDetectorDevice
+import com.google.home.matter.standard.WaterLeakDetectorDevice
+import com.google.home.matter.standard.WindowCovering
+import com.google.home.matter.standard.WindowCoveringDevice
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 
 internal suspend fun HomeClient.getStructures(): Set<Structure> {
@@ -119,6 +129,7 @@ internal suspend fun HomeClient.subscribeToDeviceChanges(
 ): Flow<Trait?> {
     type ?: return emptyFlow()
     trait ?: return emptyFlow()
+
     return getDevice(id)?.type(type)?.map {
         it.trait(trait)
     } ?: emptyFlow()
@@ -141,7 +152,7 @@ internal suspend fun HomeClient.getDeviceTypes(id: String): Set<DeviceType>? {
 }
 
 internal suspend fun HomeClient.getDeviceTrait(id: String, origin: KClass<*>): Trait? {
-    return getDeviceTypes(id)?.firstOrNull()?.traits()?.firstOrNull {
+    return getDeviceTypes(id)?.toList()?.map { it.traits() }?.flatten()?.firstOrNull {
         origin.isInstance(it)
     }
 }
