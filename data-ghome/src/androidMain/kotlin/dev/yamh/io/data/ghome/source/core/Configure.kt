@@ -9,8 +9,6 @@ import com.google.home.google.AreaPresenceState
 import com.google.home.google.Assistant
 import com.google.home.google.AssistantBroadcast
 import com.google.home.google.AssistantFulfillment
-import com.google.home.google.ExtendedFanControl
-import com.google.home.google.ExtendedThermostat
 import com.google.home.google.GoogleAirCoolerDevice
 import com.google.home.google.GoogleDisplayDevice
 import com.google.home.google.GoogleTVDevice
@@ -26,7 +24,6 @@ import com.google.home.matter.standard.ColorTemperatureLightDevice
 import com.google.home.matter.standard.ContactSensorDevice
 import com.google.home.matter.standard.DimmableLightDevice
 import com.google.home.matter.standard.DoorLockDevice
-import com.google.home.matter.standard.ExtendedColorLightDevice
 import com.google.home.matter.standard.GenericSwitchDevice
 import com.google.home.matter.standard.LevelControl
 import com.google.home.matter.standard.OccupancySensing
@@ -45,6 +42,8 @@ import com.google.home.matter.standard.TemperatureSensorDevice
 import com.google.home.matter.standard.Thermostat
 import com.google.home.matter.standard.ThermostatDevice
 import com.google.home.matter.standard.WaterLeakDetectorDevice
+import com.google.home.matter.standard.WindowCovering
+import com.google.home.matter.standard.WindowCoveringDevice
 
 public class Configure {
     public companion object {
@@ -54,7 +53,6 @@ public class Configure {
             ColorTemperatureLightDevice,
             DimmableLightDevice,
             AirPurifierDevice,
-            ExtendedColorLightDevice,
             GenericSwitchDevice,
             GoogleDisplayDevice,
             GoogleTVDevice,
@@ -66,12 +64,13 @@ public class Configure {
             RootNodeDevice,
             SpeakerDevice,
             ThermostatDevice,
-            GoogleAirCoolerDevice,
-            RoomAirConditionerDevice,
+//            GoogleAirCoolerDevice,
+//            RoomAirConditionerDevice,
             TemperatureSensorDevice,
             WaterLeakDetectorDevice,
             DoorLockDevice,
             AirQualitySensorDevice,
+            WindowCoveringDevice
         )
 
         // List of supported device traits by this app:
@@ -92,9 +91,8 @@ public class Configure {
             Thermostat,
             Time,
             Volume,
-            ExtendedFanControl,
-            ExtendedThermostat,
             ColorControl,
+            WindowCovering
         )
     }
 }
