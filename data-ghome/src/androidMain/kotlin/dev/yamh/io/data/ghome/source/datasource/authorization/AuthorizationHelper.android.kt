@@ -39,7 +39,7 @@ public actual class AuthorizationHelper : KoinComponent {
             PermissionsState.GRANTED -> true
             PermissionsState.PERMISSIONS_STATE_UNAVAILABLE -> false
             PermissionsState.NOT_GRANTED -> false
-            PermissionsState.PERMISSIONS_STATE_UNINITIALIZED -> false
+            PermissionsState.PERMISSIONS_STATE_UNINITIALIZED -> true
             else -> false
         }
     }
