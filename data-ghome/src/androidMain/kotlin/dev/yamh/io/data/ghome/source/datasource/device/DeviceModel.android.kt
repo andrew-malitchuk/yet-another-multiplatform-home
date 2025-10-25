@@ -39,5 +39,4 @@ public actual class DeviceModel actual constructor(
             )
         }
     }
-
 }
