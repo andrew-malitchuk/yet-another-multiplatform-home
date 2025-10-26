@@ -16,8 +16,9 @@ import com.google.home.matter.standard.OnOffPluginUnitDevice
 import com.google.home.matter.standard.RoomAirConditionerDevice
 import com.google.home.matter.standard.TemperatureMeasurement
 import com.google.home.matter.standard.TemperatureSensorDevice
+import com.google.home.matter.standard.WindowCovering
+import com.google.home.matter.standard.WindowCoveringDevice
 import dev.yamh.io.data.ghome.source.core.Configure
-
 
 public fun getDeviceType(
     deviceType: List<DeviceType>?,
@@ -38,7 +39,8 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
-                    is DimmableLightDevice-> {
+
+                    is DimmableLightDevice -> {
                         result.addAll(
                             getDeviceControls(
                                 deviceTrait = originalDeviceType.traits().toList(),
@@ -47,6 +49,7 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
+
                     is ColorTemperatureLightDevice -> {
                         result.addAll(
                             getDeviceControls(
@@ -56,7 +59,8 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
-                    is OnOffPluginUnitDevice->{
+
+                    is OnOffPluginUnitDevice -> {
                         result.addAll(
                             getDeviceControls(
                                 deviceTrait = originalDeviceType.traits().toList(),
@@ -65,7 +69,8 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
-                    is TemperatureSensorDevice ->{
+
+                    is TemperatureSensorDevice -> {
                         result.addAll(
                             getDeviceControls(
                                 deviceTrait = originalDeviceType.traits().toList(),
@@ -74,7 +79,8 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
-                    is ContactSensorDevice->{
+
+                    is ContactSensorDevice -> {
                         result.addAll(
                             getDeviceControls(
                                 deviceTrait = originalDeviceType.traits().toList(),
@@ -83,7 +89,18 @@ public fun getDeviceType(
                         )
                         return@forEach
                     }
-                    is RoomAirConditionerDevice->{
+
+                    is RoomAirConditionerDevice -> {
+                        result.addAll(
+                            getDeviceControls(
+                                deviceTrait = originalDeviceType.traits().toList(),
+                                supportedTrait = Configure.supportedTraits
+                            )
+                        )
+                        return@forEach
+                    }
+
+                    is WindowCoveringDevice -> {
                         result.addAll(
                             getDeviceControls(
                                 deviceTrait = originalDeviceType.traits().toList(),
@@ -122,8 +139,10 @@ public fun getDeviceControls(
 
                     is BooleanState ->
                         result.add(dev.yamh.io.data.ghome.source.datasource.device.type.DeviceType.Contact)
-                }
 
+                    is WindowCovering ->
+                        result.add(dev.yamh.io.data.ghome.source.datasource.device.type.DeviceType.WindowCovering)
+                }
             }
 
         }
