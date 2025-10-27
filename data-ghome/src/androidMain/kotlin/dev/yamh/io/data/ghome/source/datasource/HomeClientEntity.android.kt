@@ -1,5 +1,6 @@
 package dev.yamh.io.data.ghome.source.datasource
 
+import androidx.compose.foundation.layout.WindowInsets
 import com.google.home.DeviceTypeFactory
 import com.google.home.HomeClient
 import com.google.home.TraitFactory
@@ -13,9 +14,12 @@ import com.google.home.matter.standard.OnOff
 import com.google.home.matter.standard.OnOffLightDevice
 import com.google.home.matter.standard.TemperatureMeasurement
 import com.google.home.matter.standard.TemperatureSensorDevice
+import com.google.home.matter.standard.WindowCovering
+import com.google.home.matter.standard.WindowCoveringDevice
 import dev.yamh.common.core.core.Id
 import dev.yamh.io.data.ghome.core.ext.getDeviceAttribute
 import dev.yamh.io.data.ghome.core.ext.getDeviceTrait
+import dev.yamh.io.data.ghome.core.ext.getDevices
 import dev.yamh.io.data.ghome.core.ext.getRoom
 import dev.yamh.io.data.ghome.core.ext.getRoomsFlow
 import dev.yamh.io.data.ghome.core.ext.getStructure
@@ -23,20 +27,25 @@ import dev.yamh.io.data.ghome.core.ext.getStructureFlow
 import dev.yamh.io.data.ghome.core.ext.getStructures
 import dev.yamh.io.data.ghome.core.ext.getStructuresFlow
 import dev.yamh.io.data.ghome.core.ext.subscribeToDeviceChanges
+import dev.yamh.io.data.ghome.source.datasource.device.DeviceModel
+import dev.yamh.io.data.ghome.source.datasource.device.DeviceModel.Companion.toNewModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.AttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.ColorControlAttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.ContactAttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.DimmableAttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.OnOffAttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.TemperatureAttributeModel
+import dev.yamh.io.data.ghome.source.datasource.device.attribute.WindowCoveringAttributeModel
 import dev.yamh.io.data.ghome.source.datasource.device.type.DeviceType
 import dev.yamh.io.data.ghome.source.datasource.home.HomeModel
 import dev.yamh.io.data.ghome.source.datasource.home.HomeModel.Companion.toModel
 import dev.yamh.io.data.ghome.source.datasource.room.RoomModel
 import dev.yamh.io.data.ghome.source.datasource.room.RoomModel.Companion.toModel
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.collections.map
@@ -97,6 +106,7 @@ public actual class HomeClientModel : KoinComponent {
             DeviceType.ColorControl -> OnOffLightDevice
             DeviceType.TemperatureSensor -> TemperatureSensorDevice
             DeviceType.Contact -> ContactSensorDevice
+            DeviceType.WindowCovering -> WindowCoveringDevice
         }
 
         val originalTrait: TraitFactory<*>? = when (type) {
@@ -105,6 +115,7 @@ public actual class HomeClientModel : KoinComponent {
             DeviceType.ColorControl -> ColorControl
             DeviceType.TemperatureSensor -> TemperatureMeasurement
             DeviceType.Contact -> BooleanState
+            DeviceType.WindowCovering -> WindowCovering
         }
 
         return nativeHomeClient.subscribeToDeviceChanges(
@@ -112,6 +123,7 @@ public actual class HomeClientModel : KoinComponent {
             originalControl,
             originalTrait
         ).map { trait ->
+            println("trait changed: $trait")
             when (type) {
                 DeviceType.OnOff -> {
                     OnOffAttributeModel(
@@ -143,6 +155,12 @@ public actual class HomeClientModel : KoinComponent {
                         (trait as? BooleanState)?.stateValue == true
                     )
                 }
+
+                DeviceType.WindowCovering -> {
+                    WindowCoveringAttributeModel(
+                        (trait as WindowCovering).currentPositionLiftPercentage == 0.toUByte()
+                    )
+                }
             }
 
         }
@@ -163,6 +181,7 @@ public actual class HomeClientModel : KoinComponent {
             DeviceType.ColorControl -> ColorControl::class
             DeviceType.TemperatureSensor -> TemperatureMeasurement::class
             DeviceType.Contact -> BooleanState::class
+            DeviceType.WindowCovering -> WindowCovering::class
         }
 
 
@@ -220,6 +239,17 @@ public actual class HomeClientModel : KoinComponent {
 
             DeviceType.TemperatureSensor -> Unit
             DeviceType.Contact -> Unit
+            DeviceType.WindowCovering -> {
+                (trait as? WindowCovering)?.let {
+                    if (attribute is WindowCoveringAttributeModel) {
+                        if (attribute.isOpen) {
+                            it.downOrClose()
+                        } else {
+                            it.upOrOpen()
+                        }
+                    }
+                }
+            }
         }
 
     }
@@ -233,6 +263,7 @@ public actual class HomeClientModel : KoinComponent {
             DeviceType.ColorControl -> OnOffLightDevice
             DeviceType.TemperatureSensor -> TemperatureSensorDevice
             DeviceType.Contact -> ContactSensorDevice
+            DeviceType.WindowCovering -> WindowCoveringDevice
         }
 
         val originalTrait: TraitFactory<*>? = when (type) {
@@ -241,6 +272,7 @@ public actual class HomeClientModel : KoinComponent {
             DeviceType.ColorControl -> ColorControl
             DeviceType.TemperatureSensor -> TemperatureMeasurement
             DeviceType.Contact -> BooleanState
+            DeviceType.WindowCovering -> WindowCovering
         }
 
         return nativeHomeClient.getDeviceAttribute(
@@ -279,10 +311,26 @@ public actual class HomeClientModel : KoinComponent {
                         (trait as? BooleanState)?.stateValue == true
                     )
                 }
+
+                DeviceType.WindowCovering -> {
+                    val pct = (trait as? WindowCovering)?.currentPositionLiftPercent100ths?.toInt()
+                        ?: (trait as? WindowCovering)?.currentPositionLiftPercentage?.toInt()
+                            ?.times(100)
+                    val isClosed = pct != null && pct >= 10000      // 100.00%
+                    val isOpen = pct != null && pct == 0
+                    val isPartiallyOpen = pct != null && pct in 1..9999
+
+                    WindowCoveringAttributeModel(
+                        isOpen
+                    )
+                }
             }
 
         }
     }
 
+    public actual suspend fun getDevices(): List<DeviceModel> {
+        return nativeHomeClient.getDevices().map { it.toNewModel() }
+    }
 
 }
