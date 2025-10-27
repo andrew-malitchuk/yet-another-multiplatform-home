@@ -18,7 +18,10 @@ public data class TemperatureAttributeModel(
     val temperature: String="",
 ) : AttributeModel()
 
-
 public data class ContactAttributeModel(
+    val isOpen: Boolean
+) : AttributeModel()
+
+public data class WindowCoveringAttributeModel(
     val isOpen: Boolean
 ) : AttributeModel()
