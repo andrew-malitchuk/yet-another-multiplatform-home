@@ -21,6 +21,4 @@ public expect class DeviceModel(
     public val originalId: Id?
 
     public val type: List<DeviceType>
-
-
 }
