@@ -24,12 +24,10 @@ kotlin {
 
 
 dependencies {
-    // Home API SDK dependency:
-    implementation("com.google.android.gms:play-services-home:17.0.0")
-    implementation("com.google.android.gms:play-services-home-types:17.0.0")
+    implementation(libs.play.services.home)
+    implementation(libs.play.services.home.types)
     implementation(projects.commonCore)
 }
-
 
 android {
     defaultConfig {
