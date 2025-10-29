@@ -1,6 +1,7 @@
 package dev.yamh.io.data.ghome.source.datasource
 
 import dev.yamh.common.core.core.Id
+import dev.yamh.io.data.ghome.source.datasource.device.DeviceModel
 import dev.yamh.io.data.ghome.source.datasource.device.attribute.AttributeModel
 import dev.yamh.io.data.ghome.source.datasource.home.HomeModel
 import dev.yamh.io.data.ghome.source.datasource.room.RoomModel
@@ -34,5 +35,7 @@ public expect class HomeClientModel {
         type: dev.yamh.io.data.ghome.source.datasource.device.type.DeviceType?,
         attribute: AttributeModel
     )
+
+    public suspend fun getDevices(): List<DeviceModel>
 
 }
