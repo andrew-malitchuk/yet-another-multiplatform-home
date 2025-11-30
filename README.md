@@ -18,15 +18,15 @@ __YAMH__ - Yet Another Multiplatform Home - An open-source smart home control ap
 
 ## Troubleshooting
 
-Encountering issues while using YA2048CC? Check out the troubleshooting section for common problems  
-and solutions. If you still need assistance, feel free to reach out to the YA2048CC community  
+Encountering issues while using YAMH? Check out the troubleshooting section for common problems  
+and solutions. If you still need assistance, feel free to reach out to the YAMH community  
 for support.
 
 ## Contributing
 
-I welcome contributions from the community to help improve YA2048CC. Whether you want to report a bug,  
+I welcome contributions from the community to help improve YAMH. Whether you want to report a bug,  
 suggest a new feature, or submit a pull request, follow the contribution guidelines outlined in the  
-project's repository. Together, we can make YA2048CC even better.
+project's repository. Together, we can make YAMH even better.
 
 ## License
 
