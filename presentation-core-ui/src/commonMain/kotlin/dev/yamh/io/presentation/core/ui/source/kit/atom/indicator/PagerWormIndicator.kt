@@ -1,0 +1,156 @@
+package dev.yamh.io.presentation.core.ui.source.kit.atom.indicator
+
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap.Companion.Round
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
+
+/**
+ * A simple pager indicator that displays dots for each page in the pager.
+ * The transition between pages is animated in the style of a worm.
+ *
+ * @param pagerState The [PagerState] that this indicator should represent.
+ * @param activeDotColor Color of the active dot.
+ * @param dotColor Color of the inactive dots.
+ * @param modifier Modifier to apply to the layout.
+ * @param dotCount Number of dots to display.
+ * @param activeDotSize Size of the active dot.
+ * @param minDotSize Size of the dot displayed on the edge
+ * @param space Space between the dots.
+ * @param orientation Orientation of the pager.
+ */
+@Composable
+public fun PagerWormIndicator(
+    pagerState: PagerState,
+    activeDotColor: Color,
+    dotColor: Color,
+    modifier: Modifier = Modifier,
+    activeDotSize: Dp = 8.dp,
+    minDotSize: Dp = 4.dp,
+    space: Dp = 8.dp,
+    dotCount: Int = 5,
+    orientation: PagerIndicatorOrientation = PagerIndicatorOrientation.Horizontal,
+) {
+
+    val scope = rememberCoroutineScope()
+
+    PagerWormIndicator(
+        pageCount = pagerState.pageCount,
+        currentPageFraction = remember {
+            derivedStateOf {
+                pagerState.currentPage + pagerState.currentPageOffsetFraction
+            }
+        },
+        modifier = modifier,
+        activeDotSize = activeDotSize,
+        minDotSize = minDotSize,
+        space = space,
+        dotCount = dotCount,
+        activeDotColor = activeDotColor,
+        dotColor = dotColor,
+        orientation = orientation,
+        onDotClick = { scope.launch { pagerState.animateScrollToPage(it, 0f) } },
+    )
+}
+
+/**
+ * A simple pager indicator that displays dots for each page in the pager.
+ * The transition between pages is animated in the style of a worm.
+ *
+ * @param pageCount The total number of pages in the pager.
+ * @param currentPageFraction The fraction of the current page.
+ * @param activeDotColor Color of the active dot.
+ * @param dotColor Color of the inactive dots.
+ * @param modifier Modifier to apply to the layout.
+ * @param dotCount Number of dots to display.
+ * @param activeDotSize Size of the active dot.
+ * @param minDotSize Size of the dot displayed on the edge
+ * @param space Space between the dots.
+ * @param orientation Orientation of the pager.
+ * @param onDotClick Callback when a dot is clicked.
+ */
+@Composable
+public fun PagerWormIndicator(
+    pageCount: Int,
+    currentPageFraction: State<Float>,
+    activeDotColor: Color,
+    dotColor: Color,
+    modifier: Modifier = Modifier,
+    activeDotSize: Dp = 8.dp,
+    minDotSize: Dp = 4.dp,
+    space: Dp = 8.dp,
+    dotCount: Int = 5,
+    orientation: PagerIndicatorOrientation = PagerIndicatorOrientation.Horizontal,
+    onDotClick: (Int) -> Unit = {},
+) {
+
+    val wormLinePos = wormLinePosAsState(currentPageFraction)
+
+    val density = LocalDensity.current
+    val dotSizePx = with(density) { activeDotSize.toPx() }
+    val spacePx = with(density) { space.toPx() }
+
+    PagerIndicatorInternal(
+        pageCount = pageCount,
+        currentPageFraction = currentPageFraction,
+        modifier = modifier.onDotClick(
+            dotCount = dotCount,
+            pageCount = pageCount,
+            currentPageFraction = currentPageFraction,
+            onClick = onDotClick,
+            orientation = orientation,
+        ),
+        activeDotColor = dotColor,
+        dotColor = dotColor,
+        dotCount = dotCount,
+        normalDotSize = activeDotSize,
+        activeDotSize = activeDotSize,
+        minDotSize = minDotSize,
+        space = space,
+        orientation = orientation,
+        onAfterDraw = {
+
+            val lineStart = wormLinePos.value.first * (dotSizePx + spacePx)
+            val lineEnd = wormLinePos.value.second * (dotSizePx + spacePx)
+
+            val lineStartX = when (orientation) {
+                PagerIndicatorOrientation.Horizontal -> lineStart + dotSizePx / 2f
+                PagerIndicatorOrientation.Vertical -> dotSizePx / 2f
+            }
+
+            val lineStartY = when (orientation) {
+                PagerIndicatorOrientation.Horizontal -> dotSizePx / 2f
+                PagerIndicatorOrientation.Vertical -> lineStart + dotSizePx / 2f
+            }
+
+            val lineEndX = when (orientation) {
+                PagerIndicatorOrientation.Horizontal -> lineEnd + dotSizePx / 2f
+                PagerIndicatorOrientation. Vertical -> dotSizePx / 2f
+            }
+
+            val lineEndY = when (orientation) {
+                PagerIndicatorOrientation.Horizontal -> dotSizePx / 2f
+                PagerIndicatorOrientation.Vertical -> lineEnd + dotSizePx / 2f
+            }
+
+            drawLine(
+                color = activeDotColor,
+                start = Offset(lineStartX, lineStartY),
+                end = Offset(lineEndX, lineEndY),
+                strokeWidth = dotSizePx,
+                cap = Round,
+            )
+        }
+    )
+}
