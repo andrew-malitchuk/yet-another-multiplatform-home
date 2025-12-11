@@ -69,3 +69,54 @@ public object TertiaryButtonDefaults {
         )
     ).getButtonShape()
 }
+
+public object TertiaryBorderButtonDefaults {
+    public val colors: ButtonColors
+        @Composable
+        get() = ButtonColorConfigure(
+            foregroundColor = ButtonColor(
+                disabledColor = Theme.color.primary0,
+                focusedColor = Theme.color.secondary1,
+                hoveredColor = Theme.color.secondary1,
+                pressedColor = Theme.color.secondary1,
+                defaultColor = Theme.color.primary0
+            ),
+            backgroundColor = ButtonColor(
+                disabledColor = Theme.color.primary1,
+                focusedColor = Theme.color.primary2,
+                hoveredColor = Theme.color.primary2,
+                pressedColor = Theme.color.accent0,
+                defaultColor = Theme.color.primary1,
+            ),
+            borderColor = ButtonColor(
+                disabledColor = Theme.color.primary0,
+                focusedColor = Theme.color.primary0,
+                hoveredColor = Theme.color.primary0,
+                pressedColor = Theme.color.primary0,
+                defaultColor = Theme.color.primary0
+            )
+        ).getButtonColors()
+
+    public val sizes: ButtonSizes = ButtonSizeConfigure(
+        iconSize = 24.dp,
+        borderSize = 4.dp,
+        contentPadding = PaddingValues(12.dp),
+        minWidth = 32.dp,
+        minHeight = 32.dp
+    ).getButtonSize()
+
+    public val animation: ButtonAnimation = ButtonAnimationConfigure(
+        duration = 300,
+        easing = EaseInCirc
+    ).getButtonAnimation()
+
+    public val shape: ButtonShapes = ButtonShapeConfigure(
+        cornerRadius = ButtonShape(
+            disabled = 64.dp,
+            focused = 64.dp,
+            hovered = 16.dp,
+            pressed = 16.dp,
+            default = 64.dp,
+        )
+    ).getButtonShape()
+}

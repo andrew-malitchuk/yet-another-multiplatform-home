@@ -74,6 +74,7 @@ public fun Toggle(
     modifier: Modifier = Modifier,
     thumbContent: @Composable (() -> Unit)? = null,
     colors: ToggleColors = ToggleDefaults.colors(
+        thumbColor = Theme.color.primary0,
         checkedTrackColor = Theme.color.accent1,
         checkedIconColor = Theme.color.accent1,
         uncheckedTrackColor = Theme.color.secondary0,

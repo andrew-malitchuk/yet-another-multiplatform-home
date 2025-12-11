@@ -74,8 +74,8 @@ public object PushButtonDefaults {
         cornerRadius = PushButtonShape(
             disabled =  1024.dp,
             focused = 1024.dp,
-            hovered = 16.dp,
-            pressed = 16.dp,
+            hovered = 32.dp,
+            pressed = 32.dp,
             default = 1024.dp,
         )
     ).getButtonShape()

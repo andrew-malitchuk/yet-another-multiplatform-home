@@ -29,7 +29,6 @@ public fun DrawButton(
     backgroundColor: Color,
     foregroundColor: Color,
     borderColor: Color,
-//    shape: Shape,
     corner:Dp,
     iconSize: Dp,
     borderSize: Dp,
@@ -48,7 +47,6 @@ public fun DrawButton(
 //    }
 //    val cornerRadius = animateDpAsState(targetValue = radius)
 
-    ("corner: $corner, ${corner.value}").toString()
 
     //
     Box(

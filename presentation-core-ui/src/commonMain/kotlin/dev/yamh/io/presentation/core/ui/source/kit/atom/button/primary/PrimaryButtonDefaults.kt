@@ -26,8 +26,8 @@ public object PrimaryButtonDefaults {
             foregroundColor = ButtonColor(
                 disabledColor = Theme.color.primary0,
                 focusedColor = Theme.color.secondary1,
-                hoveredColor = Theme.color.secondary1,
-                pressedColor = Theme.color.secondary1,
+                hoveredColor = Theme.color.primary0,
+                pressedColor = Theme.color.primary0,
                 defaultColor = Theme.color.primary0
             ),
             backgroundColor = ButtonColor(
