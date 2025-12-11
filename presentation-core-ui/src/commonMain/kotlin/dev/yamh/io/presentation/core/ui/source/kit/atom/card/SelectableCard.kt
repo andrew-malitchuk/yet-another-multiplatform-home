@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
+import dev.yamh.io.presentation.core.ui.source.kit.atom.shape.SquircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -47,12 +47,12 @@ public fun SelectableCard(
         modifier = modifier
             .fillMaxWidth()
             .aspectRatio(1.5f)
-            .clip(RoundedCornerShape(32.dp))
+            .clip(SquircleShape(32.dp))
             .background(background)
             .border(
                 width = 4.dp,
                 color = animatedColor.value,
-                shape = RoundedCornerShape(32.dp)
+                shape = SquircleShape(32.dp)
             )
             .padding(Theme.spacing.space24),
     ) {
@@ -63,7 +63,7 @@ public fun SelectableCard(
             Text(
                 text = title,
                 style = Theme.typography.title,
-                color = Theme.color.primary1,
+                color = Theme.color.primary0,
                 maxLines = 2,
                 minLines = 2,
             )
